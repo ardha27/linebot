@@ -40,8 +40,8 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     myMessage = event.message.text
-    if '69' in myMessage:
-        message = TextSendMessage(text='69? Nice. I am a bot lol')
+    if 'zep' in myMessage:
+        message = TextSendMessage(text='Yes I am Zep Bot')
         line_bot_api.reply_message(event.reply_token, message)
 
     command = myMessage.split(' /')
@@ -64,6 +64,16 @@ def handle_message(event):
                 message += anime['title'] + ' | ' + str(anime['score']) + '\n'
                 cnt += 1
             line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+
+    elif(command[0] == '/live'):
+        res = live()
+        data = json.loads(res)
+        cnt = 0
+        message = "Currently Live\n"
+        for live in data['result']:
+            message +=  live['title'] + '\n' + "https://youtu.be/" + live['yt_video_key'] + '\n'
+            cnt += 1
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
     
     elif(command[0] == '/reddit'):
         if(command[1] == 'eli5'):
@@ -200,6 +210,13 @@ def animeSearch(query, genre, sortby):
         res = requests.get(f'https://api.jikan.moe/v3/search/anime?q=&genre={genre}&order_by={sortby}&sort=desc&limit=5')
     else:
         res = requests.get(f'https://api.jikan.moe/v3/search/anime?q={query}&genre={genre}&order_by={sortby}&sort=desc&limit=5')
+    return res.content
+
+def live():
+    #revieve array 
+
+    res = requests.get(f'https://api.holotools.app/v1/live?hide_channel_desc=1&max_upcoming_hours=24')
+    res = res['live']
     return res.content
 
 def redditAuth():
