@@ -163,7 +163,6 @@ def animeSearch(query, genre, sortby):
 def live():
     #revieve array 
 
-    print(f'https://api.holotools.app/v1/live?hide_channel_desc=1&max_upcoming_hours=24')
     res = requests.get(f'https://api.holotools.app/v1/live?hide_channel_desc=1&max_upcoming_hours=24')
     return res.content
 
