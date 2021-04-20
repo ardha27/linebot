@@ -70,7 +70,7 @@ def handle_message(event):
         data = json.loads(res)
         cnt = 0
         message = "Currently Live\n"
-        for live in data['result']:
+        for live in data['live']:
             message +=  live['title'] + '\n' + "https://youtu.be/" + live['yt_video_key'] + '\n'
             cnt += 1
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
@@ -215,8 +215,8 @@ def animeSearch(query, genre, sortby):
 def live():
     #revieve array 
 
+    print(f'https://api.holotools.app/v1/live?hide_channel_desc=1&max_upcoming_hours=24')
     res = requests.get(f'https://api.holotools.app/v1/live?hide_channel_desc=1&max_upcoming_hours=24')
-    res = res['live']
     return res.content
 
 def redditAuth():
