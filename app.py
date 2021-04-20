@@ -68,11 +68,9 @@ def handle_message(event):
     elif(command[0] == '/live'):
         res = live()
         data = json.loads(res)
-        cnt = 0
         message = "Currently Live\n"
         for live in data['live']:
             message +=  live['title'] + '\n' + "https://youtu.be/" + live['yt_video_key'] + '\n'
-            cnt += 1
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
     
     elif(command[0] == '/reddit'):
@@ -92,59 +90,6 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
             #print(message)
 
-
-
-def autentikasi():
-    #Data-data yang diperlukan
-
-    # Lakukan Autentikasi
-    s = requests.Session()
-    url = 'https://login.itb.ac.id/cas/login?service=https%3A%2F%2Fakademik.itb.ac.id%2Flogin%2FINA'
-    cookies = {
-        '_ga': 'GA1.3.933949927.1613036240',
-        '_gid': 'GA1.3.2125425999.1613036240',
-    }
-
-    params = (
-        ('service', 'https://akademik.itb.ac.id/login/INA'),
-    )
-
-    data = {
-        'username': USERNAME_INA, 
-        'password': PASSWORD_INA,
-        'execution': '2fbc6a0a-45d5-427b-bf8c-eb5d513001dd_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5Lno2WGFyaW5pVlZnV0I5WFJWdlpfdTZkZzVQNGFzdjhxTWlqdHJKYWQwal84ZnllTk51c0ZTT3F0QTJoWXd2ZVNCTGt6ekExQ05Ed0tLNjh1a0tKbzZITTdTVWpsbXdnZHhuLUQxcmMtLUE5emJfLVBERnUyeVJ0alRWbEdmT2xULWZ3akh0dnRhcjhVSlJNYkRURFB6anZiOXc3R19USGQzUnB0M3pGZDBVR1JFYy1tS2NxNHNCRUpMWGlFdTdxc2FZZmFONTBmRWQtRHY5aEFrcGV1elZOUmpkSkVodGdDeTVtUU5LMEp0NnRtTVdLcnhOVDhVUHB2Q1hLbWtuTXExTEd2MllNUFJNRGpBdVBjQTBPSGd0MXdOWXZmQVZ2Z3daTU5heTE5b0tyMjlvbTczbEd1QTFyTmJqTmJmN0k1NG9kV0NndEFKSXJlR2gxSnZrNkZvU1NncUl2dkpwekZJck55SVd6WHFzYWJVWm1ndHotY3JRZkZ2bUVKS0tfb19qVlE2Qnd0YTZGUjNmdFhnekJkeWkzUDhUU0hmeVRzX3k3REZ0cjJ2S0ZHSmRPeDVfR1JmVHRRRzJYWEdkRVA3OHNkVFJQZU1aSzAzUFk3QTNpdzE5VXYwbVRFVkRiUlA3MzVnbllkTk9GRHBvRUZnSEtpSUJiM0NqbTJGdEt0QTZPR3ZqVVJWNE9ENURmbEh1WUF2Y3JZdTluNk5uZVdxQ0JkOWJCNzQyZXppaGd0dnFYQmVxQUhBYmZNa1MxLWhUVzJOWm94TWQ4bkU1blZYUFJvSkZvNTRqY1o1QmZHWkFSWVlXSXdSclJubnNIWGNxRjFyN0FVNl90OUxWU1VfUS1VXzFiMFFTZ1hJNjU1X3I5VDhoODFCaUlpc2NFUGJnRHEwanVqSEpDMGxuWVVqcWwxVVlrWUtmdjNVeTBYbDRJbXI1V25sajhyYWtBWlpvamFVU2xiSE9fc3o1b3h1dkVsbVZKS1NmdzZSa0dYOEt4enlSa09hODFackJoZHc0b2JRTGVGcFpTNjltYzhzdk1oOExVMGdBMlkwTEZwbXVFbkdxWFdldHQwak9DNEJKTFlTcHNGM0gwdFFoYXp4a1otZGZ1YUVoOWU0Ukl5dzVnc0MxZEstc3QyVFZSNFJiWkdBMTRJOVJZUExqYVNEcy1vUnJwM3dfbUNadmhsSFhfU0FWOGgyNGlLcnBzRmktdTJENnZuZzFIYWswVzZUbHc1NzN4V3ZOdDNtVWswZlUxR1JIRVJOaDhQaWdEZkxnSTZDTUcwcnZjY0pNbHNCMFlHYWlfT0RlT1JwZUZDdkk3bTFEVWxDb1VxaV82Yzk5YnpvX0tJOUFCQXNUXzZBbWdVU3JmaHJxV1hsZy1kdk1TX0FBR2dmclBCNndPT2IyQ0VCeWtHX0lGd2o0UWNNdG9QRldvM3pJdkFwZ2QwZnUwSVVfaE1tS1RQSGV0d3RmR1ZWbEdSal9sVkN6LTk3VVZtb29YQks4VEZONlNQVGdSLXJiZWhPcEliOUhSNFNENUVLc3VVTEFiMVJMaTVTS0Ywa1NXZGN6dmdaSWthdjB0UGFveXhtektpSlBTMWZtc2FUT2Uxdms2bi1wSnJ0UExWWGZJT2tKaWpuYmFVTlNab3VNWE9PckhVZVVyUkJmTjFjUUZOSEJ0clNHSUt1R1pIQjdXSDFBa1RSeUcyX2RIMExmOTRGZzRSaW4xX1I1c1R5ZGM5bXNjZjdGUk03S2Fla3phOEZ5RUJoc0x3U0pIMU1GaHFIVnRvdkNKSTJNWDVib0dia085MFJ0dDE3SFZvMkwxcS1zcGZDSWt3QTdYdV9DcHVDbkJSSFc1ZmcwSXFWanVYeXJVZ0FtdzdpR1JVUTFNUTVOLXJ4Wndlekxndi1kNlFHeFhtZEtFVmRQTG5WdkJlQ1AwVTJGcURCWUpBa0lXRVByeFVZcC1fdF9Fb0xHQmFTN0RtZ1VNdkJNa1ZFMEZ3SFk5U3Z1NmxaX1IxQ20ydUdCcUFRUzBlVGdVVHB1VGRFUjJxbVdmRnhaYXVBOS01emhmUVJVT2VMd0o1T3YzMTdqRmFNSW12NFBUVFg4MWMxWHBRWmZoekhXZ2phQ0p4Y3RIY3VQdEhVakpFY1VwNXBTNHpxa0RWdWRvcHJCWG1YNWtISG1QZmttT212bVh5Qkg5S3YwUFdKc09fUlQwcWFRTWs0YUFOTDZMUEM4TXdjbWZmZHVleEZBa0YxZkRyRE9iYnl3cXRMVEU0Szg4WmJVZENHY3VyazZHNWV5dTltN1lHRUdFcWdnbmY1d2ZlVzdiV1JadmQ5N0tXTU9Bc3FSSDdwVWlUSDA3TUVhSUZ6YUdfanYxUkdfU0xJcmlJQ3lNSEt4ZVJKNDM5aWhJOVlfbUFpRnJSN1psVGRTOXBNdnlGX0lKY2JYaUVDeE5BLXNTUG5QSGpWV3FPVlB2TlNrN1k5bHdTRVdSclBTc3d1eEFnd0VjUF9rS3hOVURCb3JrcFFCaGZzN3RJOHJYbW5sWHpKM2RmWHA1NEo4dXVGNE96Tjljek11WDBncS13LXltSU4yRGZPYnNYSk16WHdmSmZ3bEFlb1NjM0xPWG5QWC10ZFFUcGhkNmlZQzZ5MVVYQjNJbU1wREZYNGUtM09pRjhGcXMyQnpBeG1JZm1kYllYMHg4Mk93YWNTYjVQWm5WUkdNR1o2M0JjVmpjaG9OT2JHcE1hejZRaUstN3IyaWUxeV83V1NjWjMweVQ4blZrVUdnVUZWMVg2NzdUWUItb2hnWDNmVEVPWkkyNXFkVDJQWmhGcWlqVWttaVFsYUVQOXUzQVRWdGo4RW1EdWZSMzdkVzItaHNEbGlwTnhmTDMza2hBZUttME5qTE1tWTgzWVZZczdna2dDYWxHUEV6MDBXbUpSc2RTMERjNF9md2szVFQ3cUYzblQ1QXE5X0NyTUlYdFIxel83Qnkwd2ZaSVFLbVVjWUgyY3BGck9JN2g1aXVhYUR0YmFZYThfcEJGQVcxYW5vdkN0X19KTXpzYnlvUmdDYllGazNhQjBFM2NlWWREdUV4bG03N3VudnlTTHEyUmxCT2JyZXk5azZoa1VjMmR1dTU5eWxwRWJGYTU0VUtKQ09JY0hyWEJ3OTNxdkgxQjVSRE16YTlVSzVORll4ek9UeFZ5WDN3TG5PUnBGalpMLVRxdFhHNUVFc1cwaG5XVXd0LWhndWN3RGJPdWxFdDBUUmFJQnNLMmU1NXFpNWFReGdjckpyaTNRV3F4d0hJZ0h3eFVkYkFDU0tpV2lNT05mNVVFZWh3X2tIUG5PMFFtY29DaTNZRmZ4d0NfWUg1UjMzaEdfRmpvYktJWVdZbDdIUGpveHFzaDFVeU92VmNSeGNkVTVDTkxVdFhMdE11ODZ2Q3hCaWhkUmRlT25Xck83LTFlS0cwNFY2WEJYdzNOOHNiNFdHRWRWTjRLOU9LRjdoUlY2RTM0djBFUlp6bEZaZ253OXREemQwTmdxZ2dJTmNtM3BKc3NkY0FMTDBnQ3E1LVR4VENtb2NSRHM1d0VuMlJ6UnlwbERGSWpoSDNVREh0WlQ4VEZxZ0NHbmlIcl9qY0VCTWhYYXNZRzRTeENoOU8tNW11ZXlNc0s3SDlkdDc1MElYd3J1cmI3QVo1cW14SG1zb01oeGRGMXJ6dmVUQ2wtMHpZWVNyamNfQ3NFVEhsR2Y3RlFjRy0zNGd4UC1aRldUTEE5eHFWTDhqTHppTUxwWEtVbnRmd0Q5ZGVtRjRXSXotZWY4SzlNVklxUkRhZTA4OVVid0N6UU51Wm1nXzB5dDU2NjVLT1IxS0p2YmJYNHQwTW1HQk5lQTdBZjd3X1hPTTN3V19ZcWVNd0xnRnpHTlN3U3lxWWxyMHlYWWpRUkdVa3VDOWduUWNzaGRodVlDcDVJbmMyRmNCcGhPblUzRGxRYjh4UllkdERac1h5aUg0Yl9GM0dmYkxMeGo4eko3bjRqdl9ZeU5pbjB5anByUzB4cG5zWEgydmdZZGxNMHpyTXItbUpCc3RRMnd1bmpWSlY1R0Y4czZNNkpUOF9NNnlKUU1XNUpDdE4tUTFlNXdfR0tqQy1PRW0zTEJVcTVGY09SYTZHWTB3ellKYUpvTzNSTlNWWlpOam9GU2RpbVNMa3ZlckI4MkRBNmFBRWtjZXN6ODBmWnBSYVJKXzRmR01MWERReWFjbHRQXzdGVFI4WENPTjNkeWs1SWNZeXBMSnBjRVgxcy1XSTBRbmhseGhLS2t5Q1pnTDB1UzdITV9nSzBPZ3hCR3JlckRRcy1XcVc2SlJaU2I5U3hWRUtjdlZ5bWhNejNuX3JQUHRBRjh3dEFCWXZTOS1YRWVyUDlJSEEudGdUM3hMWnlrM1VmVnhnb3Z0RjFDdDd6bHliTGQ4Y2RWTzBRN0FrTUdJaGY4Vl9NdTVfX0FBeDdOZ0VGam9nLWRyQjllVFdCUk56WndxSlVqM21yZEE=',
-        '_eventId': 'submit',
-        'geolocation': ''
-    }
-
-    #Post data
-    response = s.post(url, cookies=cookies, data=data)
-    if(response.status_code == 200):
-        print('Berhasil login ke SIX...\n')
-    return s
-    
-
-
-def getStatusMahasiswa():
-    #untuk saat ini mengembalikan daftar kuliah saja
-    session = autentikasi()
-    statusMhs = BeautifulSoup(session.get('https://akademik.itb.ac.id/app/mahasiswa:13519165/statusmhs').content, features="lxml")
-
-    status = ""
-    daftarKuliah = statusMhs.select('table.table:nth-child(1)')
-    tabelDaftarKuliah = daftarKuliah[0].find_all('tr')
-    for kuliah in tabelDaftarKuliah:
-        content = kuliah.find_all('td')
-        if(len(content) > 0):
-            kode = content[0].text
-            matkul = content[1].text
-            while(len(matkul) < 35): matkul += " "
-            kelas = "K" + content[2].text
-            sks = content[3].text + " SKS"
-            kehadiran = content[4].text
-            status += kode + " " + matkul + " " + kelas + " " + sks + " " + kehadiran + "\n"
-    return status
-    
 anime_genre = {
     "Action": "1",	
     "Adventure": "2", 	
