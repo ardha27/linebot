@@ -66,11 +66,11 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/live'):
-        res = live()
-        data = json.loads(res)
+        # res = live()
+        # data = json.loads(res)
         message = "Currently Live\n"
-        for live in data['live']:
-            message +=  live['title'] + '\n' + "https://youtu.be/" + live['yt_video_key'] + '\n'
+        # for live in data['live']:
+        #     message +=  live['title'] + '\n' + "https://youtu.be/" + live['yt_video_key'] + '\n'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
     
     elif(command[0] == '/reddit'):
