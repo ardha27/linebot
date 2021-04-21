@@ -74,7 +74,7 @@ def handle_message(event):
             url = channel['photo']
             image_message = ImageSendMessage(original_content_url=url,preview_image_url=url)
             cnt += 1
-        line_bot_api.reply_message(event.reply_token, image_message)
+        line_bot_api.push_message('<to>', image_message)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/rank'):
