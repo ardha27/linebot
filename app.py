@@ -97,7 +97,7 @@ def handle_message(event):
         data = json.loads(res)
         message = "Search Video by Comment\n\n"
         for comment in data['comments']:
-            message += 'Channel : ' + comment['channel']['name'] + '\n' + comment['title'] + '\n' + 'Link : https://youtu.be/' + comment['yt_video_key'] + 'Comment : ' + '\n' + comment['comments']['message'] +'\n\n'
+            message += 'Channel : ' + comment['channel']['name'] + '\n' + comment['title'] + '\n' + 'Link : https://youtu.be/' + comment['yt_video_key'] + 'Comment : ' + '\n' + str(comment['comments']['message']) +'\n\n'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
 def livesearch():
