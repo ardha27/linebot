@@ -70,7 +70,7 @@ def handle_message(event):
         data = json.loads(res)
         message = "Currently Live\n\n"
         for live in data['live']:
-            message +=  live['title'] + '\n' + 'Currrent View :' + live['live_viewers'] + '\n' + 'https://youtu.be/' + live['yt_video_key'] + '\n' + '\n'
+            message +=  live['title'] + '\n' + 'Currrent View :' + str(live['live_viewers']) + '\n' + 'https://youtu.be/' + live['yt_video_key'] + '\n' + '\n'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/channel'):
@@ -78,7 +78,7 @@ def handle_message(event):
         data = json.loads(res)
         message = "Search Channel\n\n"
         for channel in data['channels']:
-            message += 'Channel' + channel['name'] + '\n' + 'Subscriber : ' + channel['subscriber_count'] + '\n' + 'Link :' + 'www.youtube.com/channel/' + channel['yt_channel_id'] + '\n' + 'Twitter : '+ 'twitter.com/' + channel['twitter_link'] + '\n\n'
+            message += 'Channel' + channel['name'] + '\n' + 'Subscriber : ' + str(channel['subscriber_count']) + '\n' + 'Link :' + 'www.youtube.com/channel/' + channel['yt_channel_id'] + '\n' + 'Twitter : '+ 'twitter.com/' + channel['twitter_link'] + '\n\n'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
     
     elif(command[0] == '/reddit'):
