@@ -46,7 +46,7 @@ def handle_message(event):
 
     command = myMessage.split(' /')
 
-    elif(command[0] == '/live'):
+    if(command[0] == '/live'):
         res = livesearch()
         data = json.loads(res)
         message = "Currently Live\n\n"
@@ -85,3 +85,10 @@ def ranksearch():
     #revieve array 
     res = requests.get('https://api.holotools.app/v1/channels/?sort=subscriber_count&order=desc&limit=10')
     return res.content
+
+import os
+if __name__ == '__main__':
+   
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
+    
