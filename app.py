@@ -40,11 +40,11 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     myMessage = event.message.text
-    if 'zep' in myMessage:
-        message = TextSendMessage(text='Yes I am Zep Bot')
+    if 'pain peko' in myMessage:
+        message = TextSendMessage(text='Yes I am Pain Peko')
         line_bot_api.reply_message(event.reply_token, message)
 
-    elif 'help' in myMessage:
+    elif '/help' in myMessage:
         message = TextSendMessage(text='1. Currently Live : /live\n2. Search Channel : /channel /member_name\n3. Subscriber Rank : /rank\n4. Live End : /ended\n5. Search Video : /video /video_title\n6. Search Video by Comment : /comment /comment_input\n')
         line_bot_api.reply_message(event.reply_token, message)
 
