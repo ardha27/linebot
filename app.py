@@ -66,8 +66,8 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/live'):
-        res = live('')
-        data = json.loads(res)
+        res = live()
+        data = res.json()
         cnt = 0
         message = "Currently Live\n"
         for live in data['live']:
@@ -160,11 +160,10 @@ def animeSearch(query, genre, sortby):
         res = requests.get(f'https://api.jikan.moe/v3/search/anime?q={query}&genre={genre}&order_by={sortby}&sort=desc&limit=5')
     return res.content
 
-def live(query):
+def live():
     #revieve array 
-    if(query == ''):
-        res = requests.get(f'https://api.holotools.app/v1/live?hide_channel_desc=1&max_upcoming_hours=24')
-    return res.content
+    res = requests.get('https://api.holotools.app/v1/live?hide_channel_desc=1&max_upcoming_hours=24')
+    return res
 
 def redditAuth():
     client_auth = requests.auth.HTTPBasicAuth('31l0ejKTR-JCbw', 'HawEWet3HraYH5_VYTpRGtLlsuIn3A')
