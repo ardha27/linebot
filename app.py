@@ -68,7 +68,7 @@ def handle_message(event):
         message = "Subscriber Rank\n\n"
         cnt = 1
         for channel in data['channels']:
-            message += cnt + '.' + '\n' + 'Channel : ' + channel['name'] + '\n' + 'Subscriber : ' + str(channel['subscriber_count']) + '\n' + 'Link : ' + 'www.youtube.com/channel/' + channel['yt_channel_id'] + '\n\n'
+            message += str(cnt) + '.' + '\n' + 'Channel : ' + channel['name'] + '\n' + 'Subscriber : ' + str(channel['subscriber_count']) + '\n' + 'Link : ' + 'www.youtube.com/channel/' + channel['yt_channel_id'] + '\n\n'
             cnt += 1
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
