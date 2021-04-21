@@ -45,7 +45,11 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     elif '/help' in myMessage:
-        message = TextSendMessage(text='1. Currently Live : /live\n2. Search Channel : /channel /member_name\n3. Subscriber Rank : /rank\n4. Live End : /ended\n5. Search Video : /video /video_title\n6. Search Video by Comment : /comment /comment_input\n')
+        message = TextSendMessage(text='1. Currently Live : /live\n2. Search Channel : /channel /member_name\n3. Subscriber Rank : /rank\n4. Live End : /ended\n5. Search Video : /video /video_title\n6. Search Video by Comment : /comment /comment_input\n7. About : /about')
+        line_bot_api.reply_message(event.reply_token, message)
+
+    if '/about' in myMessage:
+        message = TextSendMessage(text='Website : infoholo.live\nDiscord : discord.gg/jnwPURA\nTrakteer : https://trakteer.id/zirneko\n\nZir Neko 2021\nCreated With HoloAPI (1.0.2)')
         line_bot_api.reply_message(event.reply_token, message)
 
     command = myMessage.split(' /')
