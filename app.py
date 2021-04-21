@@ -45,7 +45,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     elif 'help' in myMessage:
-        message = TextSendMessage(text='Currently Live : /live\nSearch Channel : /channel /member_name\nSubscriber Rank : /rank\nLive End : /ended\nSearch Video : /video /video_title\nSearch Video by Comment : /comment /comment_input\n')
+        message = TextSendMessage(text='1. Currently Live : /live\n2. Search Channel : /channel /member_name\n3. Subscriber Rank : /rank\n4. Live End : /ended\n5. Search Video : /video /video_title\n6. Search Video by Comment : /comment /comment_input\n')
         line_bot_api.reply_message(event.reply_token, message)
 
     command = myMessage.split(' /')
