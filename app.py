@@ -54,16 +54,20 @@ def handle_message(event):
         res = livesearch()
         data = json.loads(res)
         message = "Currently Live\n\n"
+        cnt = 1
         for live in data['live']:
-            message += 'Channel : ' + live['channel']['name'] + '\n' + live['title'] + '\n' + 'Currrent View : ' + str(live['live_viewers']) + '\n' + 'Link : https://youtu.be/' + live['yt_video_key'] + '\n' + '\n'
+            message += str(cnt) + '.' + '\n' + 'Channel : ' + live['channel']['name'] + '\n' + live['title'] + '\n' + 'Currrent View : ' + str(live['live_viewers']) + '\n' + 'Link : https://youtu.be/' + live['yt_video_key'] + '\n' + '\n'
+            cnt += 1
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/channel'):
         res = channelsearch(command[1])
         data = json.loads(res)
         message = "Search Channel\n\n"
+        cnt = 1
         for channel in data['channels']:
-            message += 'Channel : ' + channel['name'] + '\n' + 'Subscriber : ' + str(channel['subscriber_count']) + '\n' + 'Link : ' + 'www.youtube.com/channel/' + channel['yt_channel_id'] + '\n' + 'Twitter : '+ 'twitter.com/' + channel['twitter_link'] + '\n\n'
+            message += str(cnt) + '.' + '\n' + 'Channel : ' + channel['name'] + '\n' + 'Subscriber : ' + str(channel['subscriber_count']) + '\n' + 'Link : ' + 'www.youtube.com/channel/' + channel['yt_channel_id'] + '\n' + 'Twitter : '+ 'twitter.com/' + channel['twitter_link'] + '\n\n'
+            cnt += 1
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/rank'):
@@ -80,24 +84,30 @@ def handle_message(event):
         res = endedsearch()
         data = json.loads(res)
         message = "Live Ended Within 6 Hours Ago \n\n"
+        cnt = 1
         for ended in data['ended']:
-            message += 'Channel : ' + ended['channel']['name'] + '\n' + ended['title'] + '\n' + 'Link : https://youtu.be/' + ended['yt_video_key'] + '\n' + '\n'
+            message += str(cnt) + '.' + '\n' + 'Channel : ' + ended['channel']['name'] + '\n' + ended['title'] + '\n' + 'Link : https://youtu.be/' + ended['yt_video_key'] + '\n' + '\n'
+            cnt += 1
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/video'):
         res = videosearch(command[1])
         data = json.loads(res)
         message = "Search Video\n\n"
+        cnt = 1
         for video in data['videos']:
-            message += 'Channel : ' + video['channel']['name'] + '\n' + video['title'] + '\n' + 'Link : https://youtu.be/' + video['yt_video_key'] + '\n\n'
+            message += str(cnt) + '.' + '\n' + 'Channel : ' + video['channel']['name'] + '\n' + video['title'] + '\n' + 'Link : https://youtu.be/' + video['yt_video_key'] + '\n\n'
+            cnt += 1
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/comment'):
         res = commentsearch(command[1])
         data = json.loads(res)
         message = "Search Video by Comment\n\n"
+        cnt = 1
         for comment in data['comments']:
-            message += 'Channel : ' + comment['channel']['name'] + '\n' + comment['title'] + '\n' + 'Link : https://youtu.be/' + comment['yt_video_key'] + 'Comment : ' + '\n' + comment['comments'][0]['message'] +'\n\n'
+            message += str(cnt) + '.' + '\n' + 'Channel : ' + comment['channel']['name'] + '\n' + comment['title'] + '\n' + 'Link : https://youtu.be/' + comment['yt_video_key'] + '\n' + 'Comment : ' + '\n' + comment['comments'][0]['message'] +'\n\n'
+            cnt += 1
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
 def livesearch():
