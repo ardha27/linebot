@@ -44,6 +44,10 @@ def handle_message(event):
         message = TextSendMessage(text='Yes I am Zep Bot')
         line_bot_api.reply_message(event.reply_token, message)
 
+    elif 'help' in myMessage:
+        message = TextSendMessage(text='Currently Live : /live\nSearch Channel : /channel /member_name\nSubscriber Rank : /rank\nLive End : /ended\nSearch Video : /video /video_title\nSearch Video by Comment : /comment /comment_input\n')
+        line_bot_api.reply_message(event.reply_token, message)
+
     command = myMessage.split(' /')
 
     if(command[0] == '/live'):
@@ -51,7 +55,7 @@ def handle_message(event):
         data = json.loads(res)
         message = "Currently Live\n\n"
         for live in data['live']:
-            message += 'Channel : ' + live['channel']['name'] + '\n' + live['title'] + '\n' + 'Currrent View : ' + str(live['live_viewers']) + '\n' + 'https://youtu.be/' + live['yt_video_key'] + '\n' + '\n'
+            message += 'Channel : ' + live['channel']['name'] + '\n' + live['title'] + '\n' + 'Currrent View : ' + str(live['live_viewers']) + '\n' + 'Link : https://youtu.be/' + live['yt_video_key'] + '\n' + '\n'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/channel'):
@@ -72,6 +76,30 @@ def handle_message(event):
             cnt += 1
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
+    elif(command[0] == '/ended'):
+        res = endedsearch()
+        data = json.loads(res)
+        message = "Live Ended Within 6 Hours Ago \n\n"
+        for ended in data['ended']:
+            message += 'Channel : ' + ended['channel']['name'] + '\n' + ended['title'] + '\n' +  + 'Link : https://youtu.be/' + ended['yt_video_key'] + '\n' + '\n'
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+
+    elif(command[0] == '/video'):
+        res = videosearch(command[1])
+        data = json.loads(res)
+        message = "Search Video\n\n"
+        for video in data['videos']:
+            message += 'Channel : ' + video['channel']['name'] + '\n' + video['title'] + '\n' + 'Link : https://youtu.be/' + video['yt_video_key'] + '\n\n'
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+
+    elif(command[0] == '/comment'):
+        res = commentsearch(command[1])
+        data = json.loads(res)
+        message = "Search Video by Comment\n\n"
+        for comment in data['comments']:
+            message += 'Channel : ' + comment['channel']['name'] + '\n' + comment['title'] + '\n' + 'Link : https://youtu.be/' + comment['yt_video_key'] + 'Comment : \n' + comment['comments']['message'] +'\n\n'
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+
 def livesearch():
     #revieve array 
     res = requests.get('https://api.holotools.app/v1/live?hide_channel_desc=1&max_upcoming_hours=24')
@@ -84,6 +112,15 @@ def channelsearch(nama):
 def ranksearch():
     #revieve array 
     res = requests.get('https://api.holotools.app/v1/channels/?sort=subscriber_count&order=desc&limit=10')
+    return res.content
+
+def endedsearch():
+    #revieve array 
+    res = requests.get('https://api.holotools.app/v1/live?lookback_hours=6')
+    return res.content
+
+def videosearch(komen):
+    res = requests.get(f'https://api.holotools.app/v1/comments/search?limit=5&q={komen}')
     return res.content
 
 import os
