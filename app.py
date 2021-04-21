@@ -68,9 +68,17 @@ def handle_message(event):
     elif(command[0] == '/live'):
         res = livesearch()
         data = json.loads(res)
-        message = "Currently Live\n"
+        message = "Currently Live\n\n"
         for live in data['live']:
-            message +=  live['title'] + '\n' + 'https://youtu.be/' + live['yt_video_key'] + '\n'
+            message +=  live['title'] + '\n' + 'Currrent View :' + live['live_viewers'] + '\n' + 'https://youtu.be/' + live['yt_video_key'] + '\n' + '\n'
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+
+    elif(command[0] == '/channel'):
+        res = channelsearch(command[1])
+        data = json.loads(res)
+        message = "Search Channel\n\n"
+        for channel in data['channels']:
+            message += 'Channel' + channel['name'] + '\n' + 'Subscriber : ' + channel['subscriber_count'] + '\n' + 'Link :' + 'www.youtube.com/channel/' + channel['yt_channel_id'] + '\n' + 'Twitter : '+ 'twitter.com/' + channel['twitter_link'] + '\n\n'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
     
     elif(command[0] == '/reddit'):
@@ -160,6 +168,10 @@ def animeSearch(query, genre, sortby):
 def livesearch():
     #revieve array 
     res = requests.get('https://api.holotools.app/v1/live?hide_channel_desc=1&max_upcoming_hours=24')
+    return res.content
+
+def channelsearch(nama);
+    res = requests.get(f'https://api.holotools.app/v1/channels/?name={nama}')
     return res.content
 
 def redditAuth():
