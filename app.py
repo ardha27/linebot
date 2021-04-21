@@ -71,7 +71,10 @@ def handle_message(event):
         cnt = 1
         for channel in data['channels']:
             message += str(cnt) + '.' + '\n' + 'Channel : ' + channel['name'] + '\n' + 'Subscriber : ' + str(channel['subscriber_count']) + '\n' + 'Link : ' + 'www.youtube.com/channel/' + channel['yt_channel_id'] + '\n' + 'Twitter : '+ 'twitter.com/' + channel['twitter_link'] + '\n\n'
+            url = channel['photo']
+            image_message = ImageSendMessage(original_content_url=url,preview_image_url=url)
             cnt += 1
+        line_bot_api.reply_message(event.reply_token, image_message)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/rank'):
