@@ -45,25 +45,6 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     command = myMessage.split(' /')
-    
-    if(command[0] == '/anime'):
-        if(command[1] == 'search'):
-            genreArg = command[2].split(', ')
-            genreList = []
-            for genre in genreArg:
-                genreList.append(getAnimeGenre(genre))
-            genreList = ','.join(genreList)
-            #print(genreList)
-            res = animeSearch('', genreList, command[3])
-            data = json.loads(res)
-            
-            cnt = 0
-            message = "title | score\n"
-            for anime in data['results']:
-                if(cnt == 5): break
-                message += anime['title'] + ' | ' + str(anime['score']) + '\n'
-                cnt += 1
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/live'):
         res = livesearch()
