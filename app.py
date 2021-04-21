@@ -81,7 +81,7 @@ def handle_message(event):
         data = json.loads(res)
         message = "Live Ended Within 6 Hours Ago \n\n"
         for ended in data['ended']:
-            message += 'Channel : ' + ended['channel']['name'] + '\n' + ended['title'] + '\n' +  + 'Link : https://youtu.be/' + ended['yt_video_key'] + '\n' + '\n'
+            message += 'Channel : ' + ended['channel']['name'] + '\n' + ended['title'] + '\n' + 'Link : https://youtu.be/' + ended['yt_video_key'] + '\n' + '\n'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     elif(command[0] == '/video'):
@@ -119,7 +119,11 @@ def endedsearch():
     res = requests.get('https://api.holotools.app/v1/live?lookback_hours=6')
     return res.content
 
-def videosearch(komen):
+def videosearch(judul):
+    res = requests.get(f'https://api.holotools.app/v1/videos/?limit=10&title={judul}')
+    return res.content
+
+def commentsearch(komen):
     res = requests.get(f'https://api.holotools.app/v1/comments/search?limit=5&q={komen}')
     return res.content
 
