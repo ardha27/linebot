@@ -170,7 +170,7 @@ def livesearch():
     res = requests.get('https://api.holotools.app/v1/live?hide_channel_desc=1&max_upcoming_hours=24')
     return res.content
 
-def channelsearch(nama);
+def channelsearch(nama):
     res = requests.get(f'https://api.holotools.app/v1/channels/?name={nama}')
     return res.content
 
