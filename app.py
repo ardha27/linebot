@@ -49,7 +49,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     if '/about' in myMessage:
-        message = TextSendMessage(text='Website : infoholo.live\nDiscord : discord.gg/jnwPURA\nTrakteer : https://trakteer.id/zirneko\n\nZir Neko 2021\nCreated With HoloAPI (1.0.2)')
+        message = TextSendMessage(text='About Creator\n\nWebsite : infoholo.live\nDiscord : discord.gg/jnwPURA\nTrakteer : https://trakteer.id/zirneko\nYoutube : https://www.youtube.com/ZirNeko\nTiktok : https://vt.tiktok.com/ZSJkG5Yxh/\n\nZir Neko 2021\nCreated With HoloAPI (1.0.2)')
         line_bot_api.reply_message(event.reply_token, message)
 
     command = myMessage.split(' /')
