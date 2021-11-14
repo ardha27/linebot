@@ -3,3 +3,4 @@ flask
 requests==2.22.0
 beautifulsoup4==4.9.3
 lxml
+mcstatus
