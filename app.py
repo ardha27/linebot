@@ -63,7 +63,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     if '/status' in myMessage:
-        server = mc.lookup(grey-mist.auto.playit.gg)
+        server = mc.lookup("grey-mist.auto.playit.gg")
         status = server.status()
         players = ""
         if status.players.sample is not None:
