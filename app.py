@@ -5,6 +5,7 @@ import json
 import requests.auth
 from bs4 import BeautifulSoup
 from flask import Flask, request,  abort
+from mcstatus import MinecraftServer as mc
 
 from linebot import (
     LineBotApi, WebhookHandler
