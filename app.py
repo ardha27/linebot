@@ -63,7 +63,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     if '/status' in myMessage:
-        server = mc.lookup("grey-mist.auto.playit.gg")
+        server = mc.lookup("play.lynnplayground.tech")
         status = server.status()
         players = ""
         if status.players.sample is not None:
@@ -71,11 +71,11 @@ def handle_message(event):
                 players += '\n ' + str(player.name)
         else:
             players = "No players online"
-        message = ("The Server has {}/{} players online. \n{}".format(
+        message = TextSendMessage(text= 'The Server has {}/{} players online. \n{}".format(
             status.players.online,
             status.players.max,
             str("```" + players + "```")
-        ))
+        )')
         line_bot_api.reply_message(event.reply_token, message)
 
     command = myMessage.split(' /')
