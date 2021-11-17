@@ -68,13 +68,14 @@ def handle_message(event):
         players = ""
         if status.players.sample is not None:
             for player in status.players.sample:
-                players += '\n ' + str(player.name)
+                cnt = 1
+                players += str(cnt) + `. ` + str(player.name) + '\n'
         else:
             players = "No players online"
         player_online = status.players.online
         player_max = status.players.max
         message = 'Server : play.lynnplayground.tech' + '\n' + 'The Server has ' + str(player_online) + '/' + \
-            str(player_max) + ' players online.' '\n' + players + '\n'
+            str(player_max) + ' players online.' '\n' + players +
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     command = myMessage.split(' /')
