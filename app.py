@@ -66,10 +66,11 @@ def handle_message(event):
         server = mc.lookup("play.lynnplayground.tech")
         status = server.status()
         players = ""
+        cnt = 1
         if status.players.sample is not None:
             for player in status.players.sample:
-                cnt = 1
                 players += str(cnt) + '. ' + str(player.name) + '\n'
+                cnt += 1
         else:
             players = "No players online"
         player_online = status.players.online
