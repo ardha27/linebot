@@ -69,7 +69,7 @@ def handle_message(event):
         if status.players.sample is not None:
             for player in status.players.sample:
                 cnt = 1
-                players += str(cnt) + `. ` + str(player.name) + '\n'
+                players += str(cnt) + '. ' + str(player.name) + '\n'
         else:
             players = "No players online"
         player_online = status.players.online
