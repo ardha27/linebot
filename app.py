@@ -73,7 +73,7 @@ def handle_message(event):
             players = "No players online"
         player_online = status.players.online
         player_max = status.players.max
-        message = 'The Server has ' + str(player_online) + '/' + \
+        message = 'Server : play.lynnplayground.tech' + '\n' + 'The Server has ' + str(player_online) + '/' + \
             str(player_max) + ' players online.' '\n' + players + '\n'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
