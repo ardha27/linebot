@@ -71,12 +71,11 @@ def handle_message(event):
                 players += '\n ' + str(player.name)
         else:
             players = "No players online"
-        message = TextSendMessage(text= 'The Server has {}/{} players online. \n{}".format(
-            status.players.online,
-            status.players.max,
-            str("```" + players + "```")
-        )')
-        line_bot_api.reply_message(event.reply_token, message)
+        player_online = status.players.online
+        player_max = status.players.max
+        message = 'The Server has ' + player_online + '/' + \
+            player_max + ' players online.' '\n' + players + '\n'
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
     command = myMessage.split(' /')
 
